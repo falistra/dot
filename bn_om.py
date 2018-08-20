@@ -16,7 +16,8 @@ class Node():
         self.name = name
 
     def __repr__(self):
-        return "Node({})".format(self.name)
+        return "Node({}-{})".format(self.name,id(self))
+        # return "Node({})".format(self.name)
 
     def addToNet(self,net):
         net.nodes.append(self)
@@ -30,7 +31,8 @@ class InitialNode(Node):
         super(InitialNode, self).__init__(name)
 
     def __repr__(self):
-        return "InitialNode({})".format(self.name)
+        return "InitialNode({}-{})".format(self.name,id(self))
+        # return "InitialNode({})".format(self.name)
 
 class Edge():
     def __init__(self,From,to,cpt):
@@ -61,6 +63,16 @@ class valuesList():
     def __repr__(self):
         return (",").join(self.values)
 
+class Predicate():
+
+    def __init__(self,name,distribution):
+        self.name = name
+        self.distribution = distribution
+
+    def __repr__(self):
+        return "Predicate({}-{})".format(self.name,id(self))
+
+
 class BayesianNet():
 
     @staticmethod
@@ -82,17 +94,8 @@ class BayesianNet():
             "\nEdges\n" + \
             "\n".join([repr(edge) for edge in self.edges])
 
-if __name__ == "__main__":
-    example = """
-    smoke [t=0.5]
-    asia  [t=0.5]
-    smoke -> lung [t=0.1; f=0.01]
-    asia -> tub[t=0.05; f=0.01]
-    lung,tub -> either[t,f=1; f,t=1; t,t=1; f,f=0]
-    smoke -> bronc[t=0.6; f=0.3]
-    bronc,either -> dysp[t,f=0.9; f,t= 0.9; t,t= 0.8; f,f=0.1]
-    either -> xray[t=0.98;f=0.05]
-    """
+    def categorize(self):
+        raise NotImplementedError("categorize To be implemented")
 
-    bn = BayesianNet.define(example)
-    print(bn)
+    def inference(self,observationNode,evidences):
+        raise NotImplementedError("inference To be implemented")
