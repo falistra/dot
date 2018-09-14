@@ -1,0 +1,51 @@
+smoke [t=0.5; f=0.5]
+asia  [t=0.01; f=0.99]
+smoke -> lung [
+        t,t=0.1;
+        t,f=0.9;
+        f,t=0.01;
+        f,f=0.99
+]
+
+asia -> tub[
+t,t=0.05;
+t,f=0.95;
+f,t=0.01;
+f,f=0.99
+]
+
+lung,tub -> either[
+                    t,f,t=1;
+                    t,t,t=1;
+                    f,t,t=1;
+                    f,f,t=0;
+                    t,f,f=0;
+                    t,t,f=0;
+                    f,t,f=0;
+                    f,f,f=1
+]
+
+smoke -> bronc[
+t,t=0.6;
+t,f=0.4;
+f,t=0.3;
+f,f=0.7
+]
+
+bronc,either -> dysp[
+t,t,t=0.8;
+t,f,t=0.9;
+f,t,t=0.7;
+f,f,t=0.1;
+t,t,f=0.2;
+t,f,f=0.1;
+f,t,f=0.3;
+f,f,f=0.9
+]
+
+either -> xray[
+t,t=0.98;
+t,f=0.02;
+f,t=0.05;
+f,f=0.95
+]

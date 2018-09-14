@@ -1,0 +1,478 @@
+BirthAsphyxia [yes=0.1; no=0.9]
+
+BirthAsphyxia -> Disease [
+yes,PFC=0.20;
+yes,TGA=0.30;
+yes,Fallot=0.25;
+yes,PAIVS=0.15;
+yes,TAPVD=0.05;
+yes,Lung=0.05;
+
+no,PFC = 0.03061224;
+no,TGA=0.33673469;
+no,Fallot=0.29591837;
+no,PAIVS=0.23469388;
+no,TAPVD=0.05102041;
+no,Lung=0.05102041
+]
+
+Grunting -> GruntingReport [
+yes,yes=0.8;
+yes,no=0.2;
+no,yes=0.1;
+no,no=0.9
+]
+
+CardiacMixing, LungParench -> HypoxiaInO2 [
+None,Normal,Mild= 0.93;
+Mild,Normal,Mild= 0.1;
+Complete,Normal,Mild= 0.1;
+Transp,Normal,Mild= 0.02;
+
+None,Congested,Mild= 0.15;
+Mild,Congested,Mild= 0.10;
+Complete,Congested,Mild= 0.05;
+Transp,Congested,Mild= 0.1;
+
+None,Abnormal,Mild= 0.7;
+Mild,Abnormal,Mild= 0.10;
+Complete,Abnormal,Mild= 0.1;
+Transp,Abnormal,Mild= 0.02;
+
+None,Normal,Moderate= 0.05;
+Mild,Normal,Moderate= 0.8;
+Complete,Normal,Moderate= 0.7;
+Transp,Normal,Moderate= 0.18;
+
+None,Congested,Moderate= 0.80;
+Mild,Congested,Moderate= 0.75;
+Complete,Congested,Moderate= 0.65;
+Transp,Congested,Moderate= 0.3;
+
+None,Abnormal,Moderate= 0.2;
+Mild,Abnormal,Moderate= 0.65;
+Complete,Abnormal,Moderate= 0.5;
+Transp,Abnormal,Moderate= 0.18;
+
+None,Normal,Severe= 0.02;
+Mild,Normal,Severe= 0.1;
+Complete,Normal,Severe= 0.2 ;
+Transp,Normal,Severe= 0.8;
+
+None,Congested,Severe= 0.05;
+Mild,Congested,Severe= 0.15;
+Complete,Congested,Severe= 0.30;
+Transp,Congested,Severe= 0.6;
+
+None,Abnormal,Severe= 0.1;
+Mild,Abnormal,Severe= 0.25;
+Complete,Abnormal,Severe= 0.4;
+Transp,Abnormal,Severe= 0.80
+
+]
+
+LungParench -> CO2 [
+Normal, Normal = 0.8;
+Normal, Low = 0.1;
+Normal, High = 0.1;
+
+Congested, Normal = 0.65;
+Congested, Low = 0.05;
+Congested, High = 0.30;
+
+Abnormal, Normal = 0.45;
+Abnormal, Low = 0.05;
+Abnormal, High = 0.50
+]
+
+
+DuctFlow, CardiacMixing -> HypDistrib [
+Lt_to_Rt, None, Equal= 0.95;
+None, None, Equal= 0.95;
+Rt_to_Lt, None, Equal= 0.05;
+
+Lt_to_Rt, Mild, Equal= 0.95;
+None, Mild, Equal= 0.95;
+Rt_to_Lt, Mild, Equal= 0.5;
+
+Lt_to_Rt, Complete, Equal= 0.95;
+None, Complete, Equal= 0.95;
+Rt_to_Lt, Complete, Equal= 0.95;
+
+Lt_to_Rt, Transp, Equal= 0.95;
+None, Transp, Equal= 0.95;
+Rt_to_Lt, Transp, Equal= 0.5;
+
+Lt_to_Rt, None, Unequal= 0.05;
+None, None, Unequal= 0.05;
+Rt_to_Lt, None, Unequal= 0.95;
+
+Lt_to_Rt, Mild, Unequal= 0.05;
+None, Mild, Unequal= 0.05;
+Rt_to_Lt, Mild, Equal= 0.5;
+
+Lt_to_Rt, Complete, Unequal= 0.05;
+None, Complete, Unequal= 0.05;
+Rt_to_Lt, Complete, Unequal= 0.05;
+
+Lt_to_Rt, Transp, Unequal= 0.05;
+None, Transp, Unequal= 0.05;
+Rt_to_Lt, Transp, Equal= 0.5
+]
+
+LungParench, LungFlow -> ChestXray [
+Normal,Normal, Normal = 0.90;
+Normal,Low,  Normal = 0.05;
+Normal,High,  Normal = 0.05;
+
+Congested,Normal,  Normal = 0.14;
+Congested,Low,  Normal = 0.05;
+Congested,High,  Normal = 0.05;
+
+Abnormal,Normal, Normal = 0.15;
+Abnormal,Low, Normal = 0.05;
+Abnormal,High, Normal = 0.24;
+
+Normal,Normal, Oligaemic = 0.03;
+Normal,Low,  Oligaemic = 0.02;
+Normal,High,  Oligaemic = 0.05;
+
+Congested,Normal,  Oligaemic = 0.80;
+Congested,Low,  Oligaemic = 0.22;
+Congested,High,  Oligaemic = 0.15;
+
+Abnormal,Normal, Oligaemic = 0.01;
+Abnormal,Low, Oligaemic = 0.02;
+Abnormal,High, Oligaemic = 0.33;
+
+Normal,Normal, Plethoric = 0.03;
+Normal,Low,  Plethoric = 0.15;
+Normal,High,  Plethoric = 0.05;
+
+Congested,Normal,  Plethoric = 0.02;
+Congested,Low,  Plethoric = 0.08;
+Congested,High,  Plethoric = 0.05;
+
+Abnormal,Normal, Plethoric = 0.70;
+Abnormal,Low, Plethoric = 0.49;
+Abnormal,High, Plethoric = 0.03;
+
+Normal,Normal, Grd_Glass = 0.01;
+Normal,Low,  Grd_Glass = 0.70;
+Normal,High,  Grd_Glass = 0.05;
+
+Congested,Normal,  Grd_Glass = 0.02;
+Congested,Low,  Grd_Glass = 0.50;
+Congested,High,  Grd_Glass = 0.05;
+
+Abnormal,Normal, Grd_Glass = 0.04;
+Abnormal,Low, Grd_Glass = 0.40;
+Abnormal,High, Grd_Glass = 0.34;
+
+
+Normal,Normal, Asy/Patch = 0.03;
+Normal,Low,  Asy/Patch = 0.08;
+Normal,High,  Asy/Patch = 0.80;
+
+Congested,Normal,  Asy/Patch = 0.02;
+Congested,Low,  Asy/Patch = 0.15;
+Congested,High,  Asy/Patch = 0.70;
+
+Abnormal,Normal, Asy/Patch = 0.01;
+Abnormal,Low, Asy/Patch = 0.16;
+Abnormal,High, Asy/Patch = 0.06
+
+]
+
+LungParench, Sick -> Grunting [
+
+Normal,yes, yes = 0.2;
+Normal,no,  yes = 0.4;
+
+Congested,yes,  yes = 0.8 ;
+Congested,no,  yes = 0.05;
+
+Abnormal,yes, yes = 0.2;
+Abnormal,no, yes = 0.6;
+
+Normal,yes, no = 0.8;
+Normal,no,  no = 0.6;
+
+Congested,yes,  no = 0.2 ;
+Congested,no,  no = 0.95;
+
+Abnormal,yes, no = 0.8;
+Abnormal,no, no = 0.4
+]
+
+LVH -> LVHreport [
+yes,yes = 0.9;
+yes,no = 0.05;
+no, yes = 0.1;
+no, no = 0.95
+]
+
+HypDistrib, HypoxiaInO2 -> LowerBodyO2 [
+Equal,Mild,_5 = 0.1;
+Equal,Moderate,_5 =0.4 ;
+Equal,Severe,_5 = 0.3;
+
+Unequal,Mild,_5 = 0.50;
+Unequal,Moderate,_5 = 0.50;
+Unequal,Severe,_5 = 0.6;
+
+Equal,Mild,_5_12 = 0.3;
+Equal,Moderate,_5_12 = 0.5;
+Equal,Severe,_5_12 = 0.6;
+
+Unequal,Mild,_5_12 = 0.45;
+Unequal,Moderate,_5_12 = 0.4;
+Unequal,Severe,_5_12 = 0.35;
+
+Equal,Mild,_12= 0.6;
+Equal,Moderate,_12= 0.1;
+Equal,Severe,_12= 0.1;
+
+Unequal,Mild,_12= 0.05;
+Unequal,Moderate,_12= 0.1;
+Unequal,Severe,_12= 0.05
+
+]
+
+HypoxiaInO2 -> RUQO2 [
+Mild,_5 = 0.1;
+Mild,_5_12 = 0.3;
+Mild,_12 = 0.5;
+
+Moderate,_5 = 0.3;
+Moderate,_5_12 = 0.6;
+Moderate,_12 = 0.4;
+
+Severe,_5 = 0.6;
+Severe,_5_12 = 0.1;
+Severe,_12 = 0.1
+]
+
+CO2 -> CO2Report [
+Normal,_7_5 = 0.9;
+Normal,ge7_5 = 0.1;
+
+Low,_7_5 = 0.9;
+Low,ge7_5 = 0.1;
+
+High,_7_5 = 0.1;
+High,ge7_5 = 0.9
+
+]
+
+ChestXray -> XrayReport [
+Normal,Normal = 0.8;
+Normal,Oligaemic = 0.06;
+Normal, Plethoric = 0.06;
+Normal, Grd_Glass = 0.02;
+Normal, Asy/Patch = 0.06;
+
+Oligaemic, Normal = 0.10;
+Oligaemic,Oligaemic = 0.80;
+Oligaemic, Plethoric = 0.02;
+Oligaemic, Grd_Glass = 0.02;
+Oligaemic,Asy/Patch = 0.06;
+
+Plethoric, Normal = 0.10;
+Plethoric, Oligaemic = 0.02;
+Plethoric, Plethoric = 0.80;
+Plethoric,  Grd_Glass = 0.02;
+Plethoric, Asy/Patch = 0.06;
+
+Grd_Glass, Normal = 0.08;
+Grd_Glass, Oligaemic = 0.02;
+Grd_Glass, Plethoric = 0.10;
+Grd_Glass,  Grd_Glass = 0.60;
+Grd_Glass, Asy/Patch = 0.20;
+
+Asy/Patch,Normal = 0.08;
+Asy/Patch,Oligaemic = 0.02;
+Asy/Patch,Plethoric = 0.10;
+Asy/Patch, Grd_Glass = 0.10;
+Asy/Patch,Asy/Patch = 0.70
+
+]
+
+Disease, Sick -> Age [
+
+PFC,yes,_0_3 = 0.95;
+PFC,no,_0_3 = 0.80;
+TGA,yes,_0_3 = 0.70;
+TGA,no,_0_3 = 0.80;
+Fallot,yes,_0_3 = 0.80;
+Fallot,no,_0_3 = 0.90;
+PAIVS,yes,_0_3 = 0.85;
+PAIVS,no,_0_3 = 0.7;
+TAPVD,yes,_0_3 = 0.25;
+TAPVD,no,_0_3 = 0.80;
+Lung,yes,_0_3 = 0.7;
+Lung,no,_0_3 = 0.80;
+
+PFC,yes,_4_10 = 0.03;
+PFC,no,_4_10 = 0.15;
+TGA,yes,_4_10 = 0.15;
+TGA,no,_4_10 = 0.15;
+Fallot,yes,_4_10 = 0.15;
+Fallot,no,_4_10 = 0.08;
+PAIVS,yes,_4_10 = 0.10;
+PAIVS,no,_4_10 = 0.2;
+TAPVD,yes,_4_10 = 0.25;
+TAPVD,no,_4_10 = 0.15;
+Lung,yes,_4_10 = 0.2;
+Lung,no,_4_10 = 0.15;
+
+PFC,yes,_11_30 = 0.02;
+PFC,no,_11_30 = 0.05;
+TGA,yes,_11_30 = 0.15;
+TGA,no,_11_30 = 0.5;
+Fallot,yes,_11_30 = 0.5;
+Fallot,no,_11_30 = 0.2;
+PAIVS,yes,_11_30 = 0.5;
+PAIVS,no,_11_30 = 0.1;
+TAPVD,yes,_11_30 = 0.50;
+TAPVD,no,_11_30 = 0.05;
+Lung,yes,_11_30 = 0.1;
+Lung,no,_0_3 = 0.05
+]
+
+Disease -> LVH [
+PFC,yes= 0.1;
+TGA,yes= 0.1;
+Fallot,yes= 0.1;
+PAIVS,yes= 0.9;
+TAPVD,yes= 0.05;
+Lung, yes= 0.1;
+
+PFC,no= 0.9;
+TGA,no= 0.9;
+Fallot,no= 0.9;
+PAIVS,no= 0.1;
+TAPVD,no= 0.95;
+Lung, no= 0.9
+]
+
+Disease -> DuctFlow [
+PFC,Lt_to_Rt= 0.15;
+TGA,Lt_to_Rt= 0.1;
+Fallot,Lt_to_Rt= 0.8;
+PAIVS,Lt_to_Rt= 1;
+TAPVD,Lt_to_Rt= 0.33;
+Lung, Lt_to_Rt= 0.2;
+
+PFC,None= 0.05;
+TGA,None= 0.8;
+Fallot,None= 0.2;
+PAIVS,None= 0;
+TAPVD,None= 0.33;
+Lung, None= 0.4;
+
+PFC,Rt_to_Lt= 0.8;
+TGA,Rt_to_Lt= 0.1;
+Fallot,Rt_to_Lt= 0;
+PAIVS,Rt_to_Lt= 0;
+TAPVD,Rt_to_Lt= 0.34;
+Lung, Rt_to_Lt= 0.4
+]
+
+Disease -> CardiacMixing [
+PFC,None= 0.40;
+TGA,None= 0.02;
+Fallot,None= 0.02;
+PAIVS,None= 0.01;
+TAPVD,None= 0.01;
+Lung, None= 0.40;
+
+PFC,Mild= 0.43;
+TGA,Mild= 0.09;
+Fallot,Mild= 0.16;
+PAIVS,Mild= 0.02;
+TAPVD,Mild= 0.03;
+Lung, Mild= 0.53;
+
+PFC,Complete= 0.15;
+TGA,Complete= 0.09;
+Fallot,Complete= 0.80;
+PAIVS,Complete= 0.95;
+TAPVD,Complete= 0.95;
+Lung, Complete= 0.05;
+
+PFC,Transp= 0.02;
+TGA,Transp= 0.80;
+Fallot,Transp= 0.02;
+PAIVS,Transp= 0.02;
+TAPVD,Transp= 0.01;
+Lung, Transp= 0.02
+]
+
+Disease -> LungParench [
+
+PFC,Normal= 0.6;
+TGA,Normal= 0.80;
+Fallot,Normal= 0.80;
+PAIVS,Normal= 0.80;
+TAPVD,Normal= 0.1;
+Lung, Normal= 0.03;
+
+PFC,Congested= 0.1;
+TGA,Congested= 0.05;
+Fallot,Congested= 0.05;
+PAIVS,Congested= 0.05;
+TAPVD,Congested= 0.06;
+Lung, Congested= 0.25;
+
+PFC,Abnormal= 0.3;
+TGA,Abnormal= 0.15;
+Fallot,Abnormal= 0.15;
+PAIVS,Abnormal= 0.15;
+TAPVD,Abnormal= 0.3;
+Lung, Abnormal= 0.72
+
+]
+
+Disease -> LungFlow [
+
+PFC,Normal= 0.30;
+TGA,Normal= 0.20;
+Fallot,Normal= 0.15;
+PAIVS,Normal= 0.10;
+TAPVD,Normal= 0.3;
+Lung, Normal= 0.7;
+
+PFC,Low= 0.65;
+TGA,Low= 0.05;
+Fallot,Low= 0.80;
+PAIVS,Low= 0.85;
+TAPVD,Low= 0.1;
+Lung, Low= 0.1;
+
+PFC,High= 0.05;
+TGA,High= 0.75;
+Fallot,High= 0.05;
+PAIVS,High= 0.05;
+TAPVD,High= 0.6;
+Lung, High= 0.2
+
+]
+
+Disease -> Sick [
+
+PFC,yes= 0.4;
+TGA,yes= 0.3;
+Fallot,yes= 0.2;
+PAIVS,yes= 0.3;
+TAPVD,yes= 0.7;
+Lung, yes= 0.7;
+
+PFC,no= 0.6;
+TGA,no= 0.7;
+Fallot,no= 0.80;
+PAIVS,no= 0.7;
+TAPVD,no= 0.3;
+Lung, no= 0.3
+
+]
