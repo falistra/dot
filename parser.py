@@ -23,7 +23,7 @@ t_COMMA = r'\,'
 
 # for more complex lexical recognition, you make a function
 def t_NAME(t):
-    r'[a-zA-Z_][a-zA-Z_0-9]*'
+    r'[a-zA-Z_][a-zA-Z_0-9_/]*'
     return t
 
 def t_PROBABILITY_VALUE1(t):
@@ -50,9 +50,13 @@ def p_dag2(p):
     """ DAG : element DAG"""
     p[0] = p[2] + p[1]
 
+#def p_element1(p):
+#    """ element : NAME LS_PAREN NAME EQUALS pvalue RS_PAREN"""
+#    p[0] = bn.InitialNode(p[1],pvalue=p[5])
+
 def p_element1(p):
-    """ element : NAME LS_PAREN NAME EQUALS pvalue RS_PAREN"""
-    p[0] = bn.InitialNode(p[1])
+    """ element : NAME LS_PAREN tensor RS_PAREN"""
+    p[0] = bn.InitialNode(p[1],distribution=p[3])
 
 def p_element2(p):
     """ element : name_list ARROW NAME LS_PAREN tensor RS_PAREN"""
@@ -68,12 +72,11 @@ def p_name_list2(p):
 
 def p_tensor1(p):
     """ tensor : p_assign"""
-    p[0] = {p[1][0] : p[1][1]}
+    p[0] = [p[1]]
 
 def p_tensor2(p):
     """ tensor : p_assign SEMICOL tensor"""
-    p[3].update({p[1][0] : p[1][1]})
-    p[0] = p[3]
+    p[0] = [p[1]] + p[3]
 
 def p_assign(p):
     """ p_assign : values_list EQUALS pvalue """
@@ -81,11 +84,11 @@ def p_assign(p):
 
 def p_values_list1(p):
     """ values_list : NAME """
-    p[0] = bn.valuesList() + p[1]
+    p[0] = [p[1]]
 
 def p_values_list2(p):
     """ values_list : NAME COMMA values_list"""
-    p[0] = p[3] + p[1]
+    p[0] = [p[1]] + p[3]
 
 def p_pvalue(p):
     """ pvalue : PROBABILITY_VALUE1
